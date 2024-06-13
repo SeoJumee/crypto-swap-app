@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const TokenSelectContainer = styled.div`
+export const TokenSelectContainer = styled.button`
   height: 40px;
   background-color: #2d2f35;
   display: flex;
@@ -31,6 +31,5 @@ export const TokenImg = styled.div`
 
 export const TokenName = styled.span`
   color: #fff;
-  font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
 `;
