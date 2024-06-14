@@ -31,6 +31,17 @@ function TokenSelectModal() {
   const setSelectedToken1 = useSetRecoilState(SelectedToken1);
   const setSelectedToken2 = useSetRecoilState(SelectedToken2);
   const selectInputId = useRecoilValue(SelectInputId);
+  let recentTokens: { name: string; id: string }[] = JSON.parse(
+    localStorage.getItem('recentTokens') || '[]'
+  );
+
+  if (!recentTokens || recentTokens.length === 0) {
+    recentTokens = [
+      { name: 'DAI', id: 'dai' },
+      { name: 'USDC', id: 'usd-coin' },
+    ];
+    localStorage.setItem('recentTokens', JSON.stringify(recentTokens));
+  }
 
   function handleCloseModal() {
     setIsModal(false);
@@ -55,6 +66,15 @@ function TokenSelectModal() {
     } else if (selectInputId === 2) {
       setSelectedToken2(token);
     }
+    saveRecentTokens(token);
+  }
+
+  function saveRecentTokens(token: { name: string; id: string }) {
+    const updatedRecentTokens = [
+      token,
+      ...recentTokens.filter((recentToken) => recentToken.id !== token.id),
+    ].slice(0, 7);
+    localStorage.setItem('recentTokens', JSON.stringify(updatedRecentTokens));
   }
 
   return (
@@ -73,7 +93,7 @@ function TokenSelectModal() {
           value={inputValue}
         />
         <S.RecentTokens>
-          {tokens.slice(0, 7).map((token) => (
+          {recentTokens.map((token) => (
             <RecentTokensItem
               key={token.id}
               name={token.name}
