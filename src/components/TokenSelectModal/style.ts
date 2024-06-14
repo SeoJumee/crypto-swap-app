@@ -73,7 +73,7 @@ export const RecentTokens = styled.div`
 
 export const TokensList = styled.div`
   width: 100%;
-  height: 350px;
+  height: 45vh;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -81,10 +81,16 @@ export const TokensList = styled.div`
   border-top: 1px solid #2d2f35;
 `;
 
+export const TokenListInfoText = styled.span`
+  color: #fff;
+  text-align: center;
+  margin-top: 20px;
+`;
+
 export const ModifyTokensButton = styled.button`
   position: absolute;
   width: 100%;
-  height: 50px;
+  height: 5vh;
   bottom: 0;
   font-size: 16px;
   border: none;
