@@ -2,7 +2,12 @@ import { useState } from 'react';
 import TokenSelectButton from '../TokenSelectButton';
 import * as S from './style';
 
-function CryptoInput() {
+interface CryptoInputProps {
+  inputId: number;
+  selectedToken: string;
+}
+
+function CryptoInput({ inputId, selectedToken }: CryptoInputProps) {
   const [inputValue, setInputValue] = useState('');
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -21,7 +26,7 @@ function CryptoInput() {
         onChange={handleInputChange}
         value={inputValue}
       />
-      <TokenSelectButton />
+      <TokenSelectButton inputId={inputId} selectedToken={selectedToken} />
     </S.CryptoInputWrapper>
   );
 }

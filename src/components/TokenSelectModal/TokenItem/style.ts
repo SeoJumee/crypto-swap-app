@@ -1,6 +1,7 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export const TokenItemWrapper = styled.div`
+export const TokenItemWrapper = styled.div<{ isSelected: boolean }>`
   width: 100%;
   display: flex;
   align-items: center;
@@ -11,6 +12,12 @@ export const TokenItemWrapper = styled.div`
   &:hover {
     background-color: #2d2f35;
   }
+
+  ${({ isSelected }) =>
+    isSelected &&
+    css`
+      opacity: 0.2;
+    `}
 `;
 
 export const TokenImg = styled.div`

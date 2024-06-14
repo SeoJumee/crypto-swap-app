@@ -1,10 +1,12 @@
 import { useRecoilValue } from 'recoil';
 import { CryptoInputList, TokenSelectModal } from '../../components';
 import * as S from './style';
-import { IsModal } from '../../atoms';
+import { IsModal, SelectedTokens } from '../../atoms';
 
 function Home() {
   const isModal = useRecoilValue(IsModal);
+  const selectedTokens = useRecoilValue(SelectedTokens);
+
   return (
     <S.Layout>
       {isModal && <TokenSelectModal />}
@@ -19,7 +21,10 @@ function Home() {
         </S.InputWrapper>
         <S.ValueTextWrapper>
           <span>ℹ️</span>
-          <S.TokenText>1 USDT = 0.0007043 ETH</S.TokenText>
+          <S.TokenText>
+            1 {selectedTokens.token1.name} = 0.0007043{' '}
+            {selectedTokens.token2.name}
+          </S.TokenText>
           <S.DollarText>($1.0004)</S.DollarText>
         </S.ValueTextWrapper>
         <S.SwapButton type="button" onClick={() => alert('준비 중입니다')}>

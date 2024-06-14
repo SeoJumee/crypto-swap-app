@@ -1,14 +1,25 @@
 import { useSetRecoilState } from 'recoil';
 import * as S from './style';
-import { IsModal } from '../../../atoms';
+import { IsModal, SelectInputId } from '../../../atoms';
 
-function TokenSelectButton() {
+interface TokenSelectButtonProps {
+  inputId: number;
+  selectedToken: string;
+}
+
+function TokenSelectButton({ inputId, selectedToken }: TokenSelectButtonProps) {
   const setIsModal = useSetRecoilState(IsModal);
+  const setSelectInputId = useSetRecoilState(SelectInputId);
+
+  function handleOpenModal() {
+    setIsModal(true);
+    setSelectInputId(inputId);
+  }
 
   return (
-    <S.TokenSelectContainer type="button" onClick={() => setIsModal(true)}>
+    <S.TokenSelectContainer type="button" onClick={handleOpenModal}>
       <S.TokenImg />
-      <S.TokenName>ETH</S.TokenName>
+      <S.TokenName>{selectedToken}</S.TokenName>
       <span>🔽</span>
     </S.TokenSelectContainer>
   );
