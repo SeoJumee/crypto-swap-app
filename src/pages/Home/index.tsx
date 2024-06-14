@@ -1,11 +1,12 @@
 import { useRecoilValue } from 'recoil';
 import { CryptoInputList, TokenSelectModal } from '../../components';
 import * as S from './style';
-import { IsModal, SelectedTokens } from '../../atoms';
+import { IsModal, SelectedToken1, SelectedToken2 } from '../../atoms';
 
 function Home() {
   const isModal = useRecoilValue(IsModal);
-  const selectedTokens = useRecoilValue(SelectedTokens);
+  const selectedToken1 = useRecoilValue(SelectedToken1);
+  const selectedToken2 = useRecoilValue(SelectedToken2);
 
   return (
     <S.Layout>
@@ -22,8 +23,7 @@ function Home() {
         <S.ValueTextWrapper>
           <span>ℹ️</span>
           <S.TokenText>
-            1 {selectedTokens.token1.name} = 0.0007043{' '}
-            {selectedTokens.token2.name}
+            1 {selectedToken1.name} = 0.0007043 {selectedToken2.name}
           </S.TokenText>
           <S.DollarText>($1.0004)</S.DollarText>
         </S.ValueTextWrapper>

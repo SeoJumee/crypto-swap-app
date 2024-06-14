@@ -1,6 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import * as S from './style';
-import { IsModal, SelectedTokens } from '../../../atoms';
+import { IsModal, SelectedToken1, SelectedToken2 } from '../../../atoms';
 
 interface TokenItemProps {
   name: string;
@@ -10,9 +10,9 @@ interface TokenItemProps {
 
 function TokenItem({ name, id, onSelect }: TokenItemProps) {
   const setIsModal = useSetRecoilState(IsModal);
-  const selectedTokens = useRecoilValue(SelectedTokens);
-  const isSelected =
-    id === selectedTokens.token1.id || id === selectedTokens.token2.id;
+  const selectedToken1 = useRecoilValue(SelectedToken1);
+  const selectedToken2 = useRecoilValue(SelectedToken2);
+  const isSelected = id === selectedToken1.id || id === selectedToken2.id;
 
   function handleSelect() {
     if (!isSelected) {

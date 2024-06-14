@@ -7,13 +7,24 @@ export const SelectInputId = atom<number>({
   default: 0,
 });
 
-export const SelectedTokens = atom<{
-  token1: { name: string; id: string };
-  token2: { name: string; id: string };
+export const SelectedToken1 = atom<{
+  name: string;
+  id: string;
 }>({
-  key: 'SelectedTokens',
+  key: 'SelectedToken1',
   default: {
-    token1: { name: 'DAI', id: 'dai' },
-    token2: { name: 'USDC', id: 'usd-coin' },
+    name: 'DAI',
+    id: 'dai',
+  },
+});
+
+export const SelectedToken2 = atom<{
+  name: string;
+  id: string;
+}>({
+  key: 'SelectedToken2',
+  default: {
+    name: 'USDC',
+    id: 'usd-coin',
   },
 });

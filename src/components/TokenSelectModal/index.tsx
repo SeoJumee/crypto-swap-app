@@ -1,6 +1,11 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import * as S from './style';
-import { IsModal, SelectInputId, SelectedTokens } from '../../atoms';
+import {
+  IsModal,
+  SelectInputId,
+  SelectedToken1,
+  SelectedToken2,
+} from '../../atoms';
 import RecentTokensItem from './RecentTokensItem';
 import TokenItem from './TokenItem';
 import { useState } from 'react';
@@ -23,8 +28,10 @@ function TokenSelectModal() {
   const [inputValue, setInputValue] = useState('');
   const [searchedTokens, setSearchedTokens] =
     useState<{ name: string; id: string }[]>(tokens);
-  const setSelectedTokens = useSetRecoilState(SelectedTokens);
+  const setSelectedToken1 = useSetRecoilState(SelectedToken1);
+  const setSelectedToken2 = useSetRecoilState(SelectedToken2);
   const selectInputId = useRecoilValue(SelectInputId);
+
   function handleCloseModal() {
     setIsModal(false);
   }
@@ -43,15 +50,11 @@ function TokenSelectModal() {
   }
 
   function handleSelectToken(token: { name: string; id: string }) {
-    setSelectedTokens((prevSelectedTokens) => {
-      const nextSelectedTokens = { ...prevSelectedTokens };
-      if (selectInputId === 1) {
-        nextSelectedTokens.token1 = token;
-      } else if (selectInputId === 2) {
-        nextSelectedTokens.token2 = token;
-      }
-      return nextSelectedTokens;
-    });
+    if (selectInputId === 1) {
+      setSelectedToken1(token);
+    } else if (selectInputId === 2) {
+      setSelectedToken2(token);
+    }
   }
 
   return (
