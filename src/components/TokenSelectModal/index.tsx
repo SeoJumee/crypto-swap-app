@@ -4,13 +4,30 @@ import { IsModal } from '../../atoms';
 import RecentTokensItem from './RecentTokensItem';
 import TokenItem from './TokenItem';
 import { TOKENS } from './constant';
+import { useState } from 'react';
 
 function TokenSelectModal() {
   const setIsModal = useSetRecoilState(IsModal);
+  const [inputValue, setInputValue] = useState('');
+  const [searchedTokens, setSearchedTokens] =
+    useState<{ name: string; id: string }[]>(TOKENS);
 
-  const handleCloseModal = () => {
+  function handleCloseModal() {
     setIsModal(false);
-  };
+  }
+
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const value = event.target.value;
+    setInputValue(value);
+    handleSearchToken(value);
+  }
+
+  function handleSearchToken(inputValue: string) {
+    const filteredTokens = TOKENS.filter((token) =>
+      token.name.toLowerCase().includes(inputValue.toLowerCase())
+    );
+    setSearchedTokens(filteredTokens);
+  }
 
   return (
     <S.ModalLayout onClick={handleCloseModal}>
@@ -24,6 +41,8 @@ function TokenSelectModal() {
         <S.TokensSearchInput
           type="text"
           placeholder="이름 검색 또는 주소 붙여넣기"
+          onChange={handleInputChange}
+          value={inputValue}
         />
         <S.RecentTokens>
           {TOKENS.slice(0, 7).map((token) => (
@@ -31,9 +50,13 @@ function TokenSelectModal() {
           ))}
         </S.RecentTokens>
         <S.TokensList>
-          {TOKENS.map((token) => (
-            <TokenItem name={token.name} id={token.id} key={token.id} />
-          ))}
+          {searchedTokens.length !== 0 ? (
+            searchedTokens.map((token) => (
+              <TokenItem name={token.name} id={token.id} key={token.id} />
+            ))
+          ) : (
+            <S.TokenListInfoText>결과가 없습니다.</S.TokenListInfoText>
+          )}
         </S.TokensList>
         <S.ModifyTokensButton
           type="button"
