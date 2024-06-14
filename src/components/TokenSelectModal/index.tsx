@@ -71,7 +71,12 @@ function TokenSelectModal() {
         />
         <S.RecentTokens>
           {tokens.slice(0, 7).map((token) => (
-            <RecentTokensItem key={token.id} name={token.name} id={token.id} />
+            <RecentTokensItem
+              key={token.id}
+              name={token.name}
+              id={token.id}
+              onSelect={handleSelectToken}
+            />
           ))}
         </S.RecentTokens>
         <S.TokensList>
