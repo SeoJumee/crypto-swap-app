@@ -38,3 +38,13 @@ export const InputValue2 = atom<string>({
   key: 'InputValue2',
   default: '',
 });
+
+export const TokenPrice1 = atom<number>({
+  key: 'TokenPrice1',
+  default: 0,
+});
+
+export const TokenPrice2 = atom<number>({
+  key: 'TokenPrice2',
+  default: 0,
+});
