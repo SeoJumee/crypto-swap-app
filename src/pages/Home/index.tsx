@@ -1,5 +1,4 @@
 import * as S from './style';
-import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { CryptoInputList, TokenSelectModal } from '../../components';
 import {
@@ -12,19 +11,11 @@ import {
 
 function Home() {
   const isModal = useRecoilValue(IsModal);
-  const [isInputEmpty, setIsInputEmpty] = useState(false);
   const selectedToken1 = useRecoilValue(SelectedToken1);
   const selectedToken2 = useRecoilValue(SelectedToken2);
   const inputValue1 = useRecoilValue(InputValue1);
   const inputValue2 = useRecoilValue(InputValue2);
-
-  useEffect(() => {
-    if (inputValue1.length === 0 || inputValue2.length === 0) {
-      setIsInputEmpty(true);
-    } else {
-      setIsInputEmpty(false);
-    }
-  }, [inputValue1, inputValue2]);
+  const isInputEmpty = inputValue1.length === 0 || inputValue2.length === 0;
 
   return (
     <S.Layout>
