@@ -1,5 +1,5 @@
 import * as S from './style';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { CryptoInputList, TokenSelectModal } from '../../components';
 import {
   InputValue1,
@@ -14,8 +14,8 @@ import { useGetTokenPrice } from '../../api';
 
 function Home() {
   const isModal = useRecoilValue(IsModal);
-  const selectedToken1 = useRecoilValue(SelectedToken1);
-  const selectedToken2 = useRecoilValue(SelectedToken2);
+  const [selectedToken1, setSelectedToken1] = useRecoilState(SelectedToken1);
+  const [selectedToken2, setSelectedToken2] = useRecoilState(SelectedToken2);
   const inputValue1 = useRecoilValue(InputValue1);
   const inputValue2 = useRecoilValue(InputValue2);
   const setTokenPrice1 = useSetRecoilState(TokenPrice1);
@@ -27,6 +27,11 @@ function Home() {
   setTokenPrice1(tokenPriceData1?.data[selectedToken1.id].usd);
   setTokenPrice2(tokenPriceData2?.data[selectedToken2.id].usd);
 
+  function swapTokens() {
+    setSelectedToken1(selectedToken2);
+    setSelectedToken2(selectedToken1);
+  }
+
   return (
     <S.Layout>
       {isModal && <TokenSelectModal />}
@@ -36,7 +41,9 @@ function Home() {
           <span onClick={() => alert('준비 중입니다')}>⚙️</span>
         </S.TitleWrapper>
         <S.InputWrapper>
-          <S.ArrowButton type="button">↓</S.ArrowButton>
+          <S.ArrowButton type="button" onClick={swapTokens}>
+            ↓
+          </S.ArrowButton>
           <CryptoInputList />
         </S.InputWrapper>
         <S.ValueTextWrapper>
