@@ -23,7 +23,7 @@ function Home() {
         <S.ValueTextWrapper>
           <span>ℹ️</span>
           <S.TokenText>
-            1 {selectedToken1.name} = 0.0007043 {selectedToken2.name}
+            1 {selectedToken2.name} = 0.0007043 {selectedToken1.name}
           </S.TokenText>
           <S.DollarText>($1.0004)</S.DollarText>
         </S.ValueTextWrapper>

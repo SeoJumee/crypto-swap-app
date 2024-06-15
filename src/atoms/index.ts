@@ -28,3 +28,13 @@ export const SelectedToken2 = atom<{
     id: 'usd-coin',
   },
 });
+
+export const InputValue1 = atom<string>({
+  key: 'InputValue1',
+  default: '',
+});
+
+export const InputValue2 = atom<string>({
+  key: 'InputValue2',
+  default: '',
+});

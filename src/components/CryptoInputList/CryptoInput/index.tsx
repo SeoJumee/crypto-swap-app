@@ -5,11 +5,16 @@ import * as S from './style';
 interface CryptoInputProps {
   inputId: number;
   selectedToken: string;
+  inputValue: string;
+  setInputValue: (value: string) => void;
 }
 
-function CryptoInput({ inputId, selectedToken }: CryptoInputProps) {
-  const [inputValue, setInputValue] = useState('');
-
+function CryptoInput({
+  inputId,
+  selectedToken,
+  inputValue,
+  setInputValue,
+}: CryptoInputProps) {
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
     if (/^\d*\.?\d{0,10}$/.test(value)) {
