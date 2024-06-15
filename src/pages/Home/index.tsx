@@ -1,12 +1,30 @@
+import * as S from './style';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { CryptoInputList, TokenSelectModal } from '../../components';
-import * as S from './style';
-import { IsModal, SelectedToken1, SelectedToken2 } from '../../atoms';
+import {
+  InputValue1,
+  InputValue2,
+  IsModal,
+  SelectedToken1,
+  SelectedToken2,
+} from '../../atoms';
 
 function Home() {
   const isModal = useRecoilValue(IsModal);
+  const [isInputEmpty, setIsInputEmpty] = useState(false);
   const selectedToken1 = useRecoilValue(SelectedToken1);
   const selectedToken2 = useRecoilValue(SelectedToken2);
+  const inputValue1 = useRecoilValue(InputValue1);
+  const inputValue2 = useRecoilValue(InputValue2);
+
+  useEffect(() => {
+    if (inputValue1.length === 0 || inputValue2.length === 0) {
+      setIsInputEmpty(true);
+    } else {
+      setIsInputEmpty(false);
+    }
+  }, [inputValue1, inputValue2]);
 
   return (
     <S.Layout>
@@ -27,8 +45,13 @@ function Home() {
           </S.TokenText>
           <S.DollarText>($1.0004)</S.DollarText>
         </S.ValueTextWrapper>
-        <S.SwapButton type="button" onClick={() => alert('준비 중입니다')}>
-          스왑
+        <S.SwapButton
+          type="button"
+          onClick={() => alert('준비 중입니다')}
+          disabled={isInputEmpty}
+          isInputEmpty={isInputEmpty}
+        >
+          {isInputEmpty ? '금액을 입력하세요.' : '스왑'}
         </S.SwapButton>
       </S.ContentWrapper>
     </S.Layout>

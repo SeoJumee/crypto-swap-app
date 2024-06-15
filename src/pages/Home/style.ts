@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const Layout = styled.div`
@@ -84,7 +85,7 @@ export const DollarText = styled.span`
   color: #8d93a7;
 `;
 
-export const SwapButton = styled.button`
+export const SwapButton = styled.button<{ isInputEmpty: boolean }>`
   width: 100%;
   height: 72px;
   background-color: #3a70dd;
@@ -93,4 +94,12 @@ export const SwapButton = styled.button`
   font-size: 20px;
   color: #fff;
   cursor: pointer;
+
+  ${({ isInputEmpty }) =>
+    isInputEmpty &&
+    css`
+      background-color: #1b1b1b;
+      color: #757575;
+      cursor: not-allowed;
+    `}
 `;
