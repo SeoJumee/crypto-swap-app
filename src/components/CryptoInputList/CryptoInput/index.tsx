@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import TokenSelectButton from '../TokenSelectButton';
 import * as S from './style';
 
@@ -7,6 +6,7 @@ interface CryptoInputProps {
   selectedToken: string;
   inputValue: string;
   setInputValue: (value: string) => void;
+  dollarValue: (value: number) => number;
 }
 
 function CryptoInput({
@@ -14,6 +14,7 @@ function CryptoInput({
   selectedToken,
   inputValue,
   setInputValue,
+  dollarValue,
 }: CryptoInputProps) {
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
@@ -24,13 +25,16 @@ function CryptoInput({
 
   return (
     <S.CryptoInputWrapper>
-      <S.CryptoInput
-        type="number"
-        placeholder="0.0"
-        onWheel={(event) => (event.target as HTMLElement).blur()}
-        onChange={handleInputChange}
-        value={inputValue}
-      />
+      <S.ValueWrapper>
+        <S.CryptoInput
+          type="number"
+          placeholder="0.0"
+          onWheel={(event) => (event.target as HTMLElement).blur()}
+          onChange={handleInputChange}
+          value={inputValue}
+        />
+        <span>${dollarValue(Number(inputValue))}</span>
+      </S.ValueWrapper>
       <TokenSelectButton inputId={inputId} selectedToken={selectedToken} />
     </S.CryptoInputWrapper>
   );

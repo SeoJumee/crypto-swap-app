@@ -11,13 +11,14 @@ import {
   TokenPrice2,
 } from '../../atoms';
 import { useGetTokenPrice } from '../../api';
+import { useSwapTokens } from '../../hooks';
 
 function Home() {
   const isModal = useRecoilValue(IsModal);
   const [selectedToken1, setSelectedToken1] = useRecoilState(SelectedToken1);
   const [selectedToken2, setSelectedToken2] = useRecoilState(SelectedToken2);
-  const inputValue1 = useRecoilValue(InputValue1);
-  const inputValue2 = useRecoilValue(InputValue2);
+  const [inputValue1, setInputValue1] = useRecoilState(InputValue1);
+  const [inputValue2, setInputValue2] = useRecoilState(InputValue2);
   const setTokenPrice1 = useSetRecoilState(TokenPrice1);
   const setTokenPrice2 = useSetRecoilState(TokenPrice2);
   const isInputEmpty = inputValue1.length === 0 || inputValue2.length === 0;
@@ -26,10 +27,13 @@ function Home() {
   const { data: tokenPriceData2 } = useGetTokenPrice(selectedToken2.id);
   setTokenPrice1(tokenPriceData1?.data[selectedToken1.id].usd);
   setTokenPrice2(tokenPriceData2?.data[selectedToken2.id].usd);
+  const { getDollarValueFrom1Token2, tokenValueConverter } = useSwapTokens();
 
   function swapTokens() {
     setSelectedToken1(selectedToken2);
     setSelectedToken2(selectedToken1);
+    setInputValue1(inputValue2);
+    setInputValue2(inputValue1);
   }
 
   return (
@@ -49,9 +53,10 @@ function Home() {
         <S.ValueTextWrapper>
           <span>ℹ️</span>
           <S.TokenText>
-            1 {selectedToken2.name} = 0.0007043 {selectedToken1.name}
+            1 {selectedToken2.name} = {tokenValueConverter()}{' '}
+            {selectedToken1.name}
           </S.TokenText>
-          <S.DollarText>($1.0004)</S.DollarText>
+          <S.DollarText>(${getDollarValueFrom1Token2()})</S.DollarText>
         </S.ValueTextWrapper>
         <S.SwapButton
           type="button"

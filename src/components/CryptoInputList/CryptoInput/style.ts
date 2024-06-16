@@ -31,3 +31,14 @@ export const CryptoInput = styled.input`
     margin: 0;
   }
 `;
+
+export const ValueWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  span {
+    padding: 0 12px;
+    color: #9096aa;
+  }
+`;
