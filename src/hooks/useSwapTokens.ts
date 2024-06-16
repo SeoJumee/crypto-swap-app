@@ -6,7 +6,9 @@ function useSwapTokens() {
   const tokenPrice2 = useRecoilValue(TokenPrice2);
 
   const truncatedNumber = (number: number) => {
-    return Math.floor(number * Math.pow(10, 10)) / Math.pow(10, 10);
+    let roundedToTenDecimalPlaces =
+      Math.floor(number * Math.pow(10, 10)) / Math.pow(10, 10);
+    return roundedToTenDecimalPlaces || 0;
   };
 
   const getDollarValueFromToken1 = (inputValue: number) => {
