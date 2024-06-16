@@ -9,6 +9,7 @@ import {
 import RecentTokensItem from './RecentTokensItem';
 import TokenItem from './TokenItem';
 import { useState } from 'react';
+import { TokenType } from '../../types';
 
 function TokenSelectModal() {
   const tokens = [
@@ -26,12 +27,11 @@ function TokenSelectModal() {
 
   const setIsModal = useSetRecoilState(IsModal);
   const [inputValue, setInputValue] = useState('');
-  const [searchedTokens, setSearchedTokens] =
-    useState<{ name: string; id: string }[]>(tokens);
+  const [searchedTokens, setSearchedTokens] = useState<TokenType[]>(tokens);
   const setSelectedToken1 = useSetRecoilState(SelectedToken1);
   const setSelectedToken2 = useSetRecoilState(SelectedToken2);
   const selectInputId = useRecoilValue(SelectInputId);
-  let recentTokens: { name: string; id: string }[] = JSON.parse(
+  let recentTokens: TokenType[] = JSON.parse(
     localStorage.getItem('recentTokens') || '[]'
   );
 
@@ -60,7 +60,7 @@ function TokenSelectModal() {
     setSearchedTokens(filteredTokens);
   }
 
-  function handleSelectToken(token: { name: string; id: string }) {
+  function handleSelectToken(token: TokenType) {
     if (selectInputId === 1) {
       setSelectedToken1(token);
     } else if (selectInputId === 2) {
@@ -69,7 +69,7 @@ function TokenSelectModal() {
     saveRecentTokens(token);
   }
 
-  function saveRecentTokens(token: { name: string; id: string }) {
+  function saveRecentTokens(token: TokenType) {
     const updatedRecentTokens = [
       token,
       ...recentTokens.filter((recentToken) => recentToken.id !== token.id),
